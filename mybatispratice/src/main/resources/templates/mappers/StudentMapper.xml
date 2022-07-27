@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.module.mybatispratice.mapper.StudentMapper">
+    <resultMap id="studentMap" type="com.module.mybatispratice.po.StudentDO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="own_phone" property="ownPhone" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="studentDO"  useGeneratedKeys="true" keyProperty="id">
+        insert into  student(name,age,address,own_phone,birthday)
+        values (
+                #{studentDO.name},
+                #{studentDO.age},
+                #{studentDO.address},
+                #{studentDO.ownPhone},
+                #{studentDO.birthday}
+        )
+    </insert>
+    <select id="select" parameterType="long" resultType="studentDO">
+        select * from student where id = #{id}
+    </select>
+    <!--    <resultMap id="teacherMap" type="com.po.vo.Teacher">-->
+<!--        <id column="id" property="id" jdbcType="INTEGER"/>-->
+<!--        <result column="name" property="name" jdbcType="VARCHAR"/>-->
+<!--        <result column="age" property="age" jdbcType="INTEGER"/>-->
+<!--        <result column="address" property="address" jdbcType="VARCHAR"/>-->
+<!--        <result column="own_phone" property="ownPhone" jdbcType="VARCHAR"/>-->
+<!--        <result column="birthday" property="birthday" jdbcType="DATE"/>-->
+<!--    </resultMap>-->
+
+
+</mapper>

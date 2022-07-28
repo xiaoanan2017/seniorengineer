@@ -1,17 +1,13 @@
 package com.module.mybatispratice.config;
 
+import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.PathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -27,7 +23,7 @@ public class MybatisConfig {
     private DataSource dataSource;
 
     @Bean
-    @Primary
+//    @Primary
     public SqlSessionFactoryBean factoryBean(org.apache.ibatis.session.Configuration config) throws IOException {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
@@ -46,4 +42,5 @@ public class MybatisConfig {
 
         return new org.apache.ibatis.session.Configuration();
     }
+
 }

@@ -34,6 +34,8 @@
 <!--        <result column="own_phone" property="ownPhone" jdbcType="VARCHAR"/>-->
 <!--        <result column="birthday" property="birthday" jdbcType="DATE"/>-->
 <!--    </resultMap>-->
-
+    <select id="list" parameterType="long" resultType="studentDO">
+        select * from student where id &lt; #{id}
+    </select>
 
 </mapper>

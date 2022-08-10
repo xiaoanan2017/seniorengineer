@@ -1,7 +1,6 @@
 package com.module.mybatispratice.po;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +13,11 @@ import java.util.Date;
  * @date 2022/7/27 22:57
  **/
 @Table(name =  "student")
-@Data
 @Builder
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class StudentDO {
 
     @Id

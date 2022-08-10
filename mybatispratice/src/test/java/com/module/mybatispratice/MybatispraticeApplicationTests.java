@@ -1,12 +1,14 @@
 package com.module.mybatispratice;
 
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.page.PageMethod;
 import com.module.mybatispratice.mapper.StudentMapper;
 import com.module.mybatispratice.po.StudentDO;
+import com.module.mybatispratice.po.StudentEO;
 import lombok.extern.slf4j.Slf4j;
-import net.minidev.json.JSONObject;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,4 +56,23 @@ class MybatispraticeApplicationTests {
 		System.out.println(list);
 		log.info("完成");
 	}
+
+	@Test
+	void selectEO() {
+		Page<Object> page = PageMethod.startPage(1, 10);
+		StudentEO studentEO = studentMapper.selectEO(2L);
+		System.out.println("总记录数 " + page.getTotal());
+		System.out.println(JSON.toJSONString(studentEO));
+		log.info("完成");
+	}
+
+	@Test
+	void selectEOlist() {
+		Page<Object> page = PageMethod.startPage(1, 10);
+		StudentEO studentEO = studentMapper.selectEOlist(1L);
+		System.out.println("总记录数 " + page.getTotal());
+		System.out.println(JSON.toJSONString(studentEO));
+		log.info("完成");
+	}
+
 }

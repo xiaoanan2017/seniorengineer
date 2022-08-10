@@ -23,7 +23,7 @@ public class MybatisConfig {
     private DataSource dataSource;
 
     @Bean
-//    @Primary
+    @Primary
     public SqlSessionFactoryBean factoryBean(org.apache.ibatis.session.Configuration config) throws IOException {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
@@ -35,7 +35,7 @@ public class MybatisConfig {
 
         return factoryBean;
     }
-
+    
     @Bean
     @ConfigurationProperties(prefix = "mybatis.configuration")
     public org.apache.ibatis.session.Configuration config() {

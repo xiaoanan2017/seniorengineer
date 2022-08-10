@@ -13,6 +13,25 @@
         <result column="birthday" property="birthday" jdbcType="DATE"/>
     </resultMap>
 
+    <resultMap id="score" type="com.module.mybatispratice.po.ScoreDO">
+        <id column="id" property="id" jdbcType="NUMERIC"/>
+        <result column="student_id" property="studentId" jdbcType="NUMERIC"/>
+        <result column="subject" property="subject" jdbcType="VARCHAR"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+    </resultMap>
+    <!-- 一对多映射关系 结果集中 scoreDO 对象对应的列是以 scoreDO. 开头的 ，所以这里一定要配置好 columnPrefix="scoreDO." -->
+    <resultMap id="studentEO" type="com.module.mybatispratice.po.StudentEO">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="own_phone" property="ownPhone" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+        
+        <collection property="list" columnPrefix="scoreDO." resultMap="score"/>
+    </resultMap>
+
+
     <insert id="insert" parameterType="studentDO"  useGeneratedKeys="true" keyProperty="id">
         insert into  student(name,age,address,own_phone,birthday)
         values (
@@ -23,6 +42,7 @@
                 #{studentDO.birthday}
         )
     </insert>
+
     <select id="select" parameterType="long" resultType="studentDO">
         select * from student where id = #{id}
     </select>
@@ -36,6 +56,21 @@
 <!--    </resultMap>-->
     <select id="list" parameterType="long" resultType="studentDO">
         select * from student where id &lt; #{id}
+    </select>
+    <select id="selectEO" resultType="com.module.mybatispratice.po.StudentEO">
+        select a.*,b.id 'scoreDO.id' ,b.student_id 'scoreDO.student_id',b.subject 'scoreDO.subject', b.score 'scoreDO.score'
+        from student a
+        left join score b
+        on a.id = b.student_id
+        where a.id = #{id}
+    </select>
+
+    <select id="selectEOlist" resultMap="studentEO">
+        select a.*,b.id 'scoreDO.id' ,b.student_id 'scoreDO.student_id',b.subject 'scoreDO.subject', b.score 'scoreDO.score'
+        from student a
+        left join score b
+        on a.id = b.student_id
+        where a.id = #{id}
     </select>
 
 </mapper>

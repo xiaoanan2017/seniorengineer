@@ -1,7 +1,7 @@
 package com.module.mybatispratice.config;
 
-import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,34 +13,28 @@ import javax.sql.DataSource;
 import java.io.IOException;
 
 /**
+ * 另外一种更便捷的方式导入 mybatis参数
+ * mybatis的参数可以全部注入到 MybatisProperties
  * @author xiaoaa
  * @date 2022/7/27 22:37
  **/
-//@Configuration
-public class MybatisConfig {
+@Configuration
+public class MybatisConfig2 {
 
     @javax.annotation.Resource
     private DataSource dataSource;
 
     @Bean
     @Primary
-    public SqlSessionFactoryBean factoryBean(org.apache.ibatis.session.Configuration config) throws IOException {
+    public SqlSessionFactoryBean factoryBean(MybatisProperties mybatisProperties) throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        factoryBean.setConfiguration(mybatisProperties.getConfiguration());
         factoryBean.setDataSource(dataSource);
-        factoryBean.setConfiguration(config);
-        factoryBean.setTypeAliasesPackage("com.module.mybatispratice.po");
-        // classpath 当前类加载器路径  classpath* 所有类加载器路径
-        Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath*:/templates/mappers/*.xml");
-        factoryBean.setMapperLocations(resources);
-
+        factoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
+        factoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
+        //yml文件中的很多参数看着跟 SqlSessionFactoryBean 中的属性名一直，可是如果是自定义了 SqlSessionFactoryBean ，实际上是无法直接通过属性赋值的
+        //可以借用 MybatisProperties 来进行设值
         return factoryBean;
-    }
-    
-    @Bean
-    @ConfigurationProperties(prefix = "mybatis.configuration")
-    public org.apache.ibatis.session.Configuration config() {
-
-        return new org.apache.ibatis.session.Configuration();
     }
 
 }

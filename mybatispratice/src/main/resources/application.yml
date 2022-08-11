@@ -11,4 +11,5 @@ mybatis:
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
         map-underscore-to-camel-case: true
-#    type-aliases-package: com.module.mybatispratice.po
+    mapper-locations: classpath*:templates/mappers/*.xml
+    type-aliases-package: com.module.mybatispratice.po

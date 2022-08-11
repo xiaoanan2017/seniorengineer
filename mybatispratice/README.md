@@ -86,3 +86,9 @@ public class StudentEO extends StudentDO{
     <artifactId>jackson-annotations</artifactId>
 </dependency>
 ```
+
+##20220811 自定义插件
+//yml文件中的很多参数看着跟 SqlSessionFactoryBean 中的属性名一直，可是如果是自定义了 SqlSessionFactoryBean ，实际上是无法直接通过属性赋值的
+//可以借用 MybatisProperties 来进行设值
+        
+##20220812 引入登录机制

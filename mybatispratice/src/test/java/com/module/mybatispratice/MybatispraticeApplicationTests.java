@@ -57,6 +57,9 @@ class MybatispraticeApplicationTests {
 		log.info("完成");
 	}
 
+	/**
+	 * 测试结果集 1对1
+	 */
 	@Test
 	void selectEO() {
 		Page<Object> page = PageMethod.startPage(1, 10);
@@ -66,6 +69,9 @@ class MybatispraticeApplicationTests {
 		log.info("完成");
 	}
 
+	/**
+	 * 测试结果集 1对 多
+	 */
 	@Test
 	void selectEOlist() {
 		Page<Object> page = PageMethod.startPage(1, 10);
@@ -75,4 +81,5 @@ class MybatispraticeApplicationTests {
 		log.info("完成");
 	}
 
+	
 }

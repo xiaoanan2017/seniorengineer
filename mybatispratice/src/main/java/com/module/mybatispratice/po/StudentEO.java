@@ -15,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 public class StudentEO extends StudentDO{
 
+    private static final long serialVersionUID = -6673625117941366331L;
+
     private ScoreDO scoreDO;
 
     private List<ScoreDO> list;

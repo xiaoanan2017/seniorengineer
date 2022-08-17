@@ -4,6 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.module.mybatispratice.mapper.StudentMapper">
+    <cache eviction="FIFO"
+           flushInterval = "60000"
+           size="512"
+           readOnly="true"
+    />
     <resultMap id="studentMap" type="com.module.mybatispratice.po.StudentDO">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
@@ -42,6 +47,31 @@
                 #{studentDO.birthday}
         )
     </insert>
+
+    <update id="updateStudentById">
+        update student
+        <set>
+            <if test="studentDO.id!=null">
+                id = #{studentDO.id},
+            </if>
+            <if test="studentDO.name!=null and studentDO.name!=''">
+                name = #{studentDO.name},
+            </if>
+            <if test="studentDO.age!=null">
+                age = #{studentDO.age},
+            </if>
+            <if test="studentDO.address!=null and studentDO.address!=''">
+                address = #{studentDO.address},
+            </if>
+            <if test="studentDO.ownPhone!=null and studentDO.ownPhone!=''">
+                own_phone = #{studentDO.ownPhone},
+            </if>
+            <if test="studentDO.birthday!=null">
+                birthday = #{studentDO.birthday},
+            </if>
+        </set>
+        where id = #{studentDO.id}
+    </update>
 
     <select id="select" parameterType="long" resultType="studentDO">
         select * from student where id = #{id}

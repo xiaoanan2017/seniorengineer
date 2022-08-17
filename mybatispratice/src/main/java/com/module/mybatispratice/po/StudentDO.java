@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +19,9 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentDO {
+public class StudentDO implements Serializable {
+
+    private static final long serialVersionUID = 1071273986889182372L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -33,4 +33,6 @@ public interface StudentMapper {
      * @return
      */
     StudentEO selectEOlist(Long id);
+
+    Long updateStudentById(@Param("studentDO") StudentDO studentDO);
 }

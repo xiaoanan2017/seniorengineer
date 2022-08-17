@@ -11,5 +11,7 @@ mybatis:
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
         map-underscore-to-camel-case: true
+#        local-cache-scope: statement
+        cache-enabled: true
     mapper-locations: classpath*:templates/mappers/*.xml
     type-aliases-package: com.module.mybatispratice.po

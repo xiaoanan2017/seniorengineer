@@ -1,0 +1,20 @@
+## 数据库配置 driver-class-name 可以不写，springboot会根据 url中jdbc后面的标识符自动查找
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+        username: root
+        password: root
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    security:
+        user:
+            password: 1234
+            roles: Admin,test
+## mybatis 相关配置
+mybatis:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        map-underscore-to-camel-case: true
+#        local-cache-scope: statement
+        cache-enabled: true
+    mapper-locations: classpath*:templates/mappers/*.xml
+#    type-aliases-package: com.pratice.entity

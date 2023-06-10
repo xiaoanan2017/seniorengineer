@@ -1,0 +1,17 @@
+spring:
+#    security:
+#        user:
+#            name: admin
+#            password: 1234
+#    web:
+#        resources:
+#            static-locations: classpath:/
+
+    mvc:
+        view:
+            suffix: .jsp
+            prefix: /
+        log-resolved-exception: true
+server:
+    port: 8081
+

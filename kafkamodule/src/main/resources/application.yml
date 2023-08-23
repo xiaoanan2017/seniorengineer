@@ -1,0 +1,57 @@
+## 数据库配置 driver-class-name 可以不写，springboot会根据 url中jdbc后面的标识符自动查找
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+        username: root
+        password: root
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    security:
+        user:
+            password: 1234
+            roles: Admin,test
+    #kafka配置项
+    kafka:
+        bootstrap-servers: 127.0.0.1:9092 #指定 kafka broker地址，可以设置多个
+        #kafka producer配置项
+        producer:
+            acks: 1 # 0-不应答 1-leader应答 all- 所有leader 和 follower应答
+            retries: 3 #发生失败时，重试发送的次数
+            key-serializer: org.springframework.kafka.support.serializer.ToStringSerializer
+            value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+        # kafka Consumer配置项
+        consumer:
+            auto-offset-reset: earliest #设置消费者分组最初的消费进度为 earlieset
+            key-deserializer: org.springframework.kafka.support.serializer.ParseStringDeserializer
+            value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+            properties:
+                spring:
+                    json:
+                        trusted:
+                            packages: com.example.kafkamodule.message
+        #kafka consumer Listener 监听器配置项
+        listener:
+            missing-topics-fatal: false # 消费监听接口的主题不存在时，默认会报错。所以通过设置为 false,解决报错
+    jackson:
+        serialization:
+            FAIL_ON_EMPTY_BEANS: false
+## mybatis 相关配置
+mybatis:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+        map-underscore-to-camel-case: true
+#        local-cache-scope: statement
+        cache-enabled: true
+    mapper-locations: classpath*:templates/mappers/*.xml
+#    type-aliases-package: com.pratice.entity
+
+logging:
+    level:
+        org:
+            springframework:
+                kafka: ERROR # spring-kafka INFO 日志太多了，所以我们限制只打印 ERROR 级别
+            apache:
+                kafka: ERROR # kafka INFO 日志太多了，所以我们限制只打印 ERROR 级别
+
+server:
+    port: 8081
